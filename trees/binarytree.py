@@ -1,47 +1,51 @@
 class BinaryNode:
     def __init__(self, data):
-        self.data=data
+        self.data = data
         self.left = None
         self.right = None
 
-def preOrder(root):
-    results = []
-    traverse(root, results)
-    return results
-    
-def traverse(node, results):
-    if node is None:
-        return
-    results.append(node.data)
-    traverse(node.left, results)
-    traverse(node.right, results)
+class BinaryTree:
+    def __init__(self, data):
+        self.root = BinaryNode(data)
 
-def traverseFind(node, target):
-    if node is None:
-        return None
+    def preOrder(self):
+        results = []
+        self.traverse(self.root, results)
+        return results
+        
+    def traverse(self, node, results):
+        if node is None:
+            return
+        results.append(node.data)
+        self.traverse(node.left, results)
+        self.traverse(node.right, results)
 
-    if node.data == target:
-        return node
+    def traverseFind(self, node, target):
+        if node is None:
+            return None
 
-    result = traverseFind(node.left, target)
-    if result is not None:
+        if node.data == target:
+            return node
+
+        result = self.traverseFind(node.left, target)
+        if result is not None:
+            return result
+        result = self.traverseFind(node.right, target)
         return result
-    result = traverseFind(node.right, target)
-    return result
-    
-def find(node, value):
-    return None if node is None else traverseFind(node, value)
+        
+    def find(self, node, value):
+        return None if node is None else self.traverseFind(node, value)
 
-def leftInsert(node, parentData, data):
-    parent = find(node, parentData)
-    if parent is None:
-        return None
-    parent.left = BinaryNode(data)
-    return parent.left
+    def leftInsert(self, node, parentData, data):
+        parent = self.find(node, parentData)
+        if parent is None:
+            return None
+        parent.left = BinaryNode(data)
+        return parent.left
 
-def rightInsert(node, parentData, data):
-    parent = find(node, parentData)
-    if parent is None:
-        return None
-    parent.right = BinaryNode(data)
-    return parent.right
+    def rightInsert(self, node, parentData, data):
+        parent = self.find(node, parentData)
+        if parent is None:
+            return None
+        parent.right = BinaryNode(data)
+        return parent.right

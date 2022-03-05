@@ -1,46 +1,45 @@
 import unittest
-import inspect
 
-from binarytree import BinaryNode, leftInsert, rightInsert, preOrder
+from binarytree import BinaryNode, BinaryTree
 
-class TestClass04(unittest.TestCase):
+class BinaryTreeTests(unittest.TestCase):
 
     def test_case01(self):
         """ Test Constructor """
-        node = BinaryNode(5)
-        self.assertEqual(5, node.data)
-        self.assertEqual(None, node.left)
-        self.assertEqual(None, node.right)
+        tree = BinaryTree(5)
+        self.assertEqual(5, tree.root.data)
+        self.assertEqual(None, tree.root.left)
+        self.assertEqual(None, tree.root.right)
 
     def test_case02(self):
         """ Test left insert """
-        node = BinaryNode(1)
-        leftInsert(node, 1, 2)
-        leftInsert(node, 2, 3)
-        self.assertEqual(2, node.left.data)
-        self.assertEqual(None, node.right)
-        self.assertEqual(3, node.left.left.data)
-        self.assertEqual(None, node.left.right)
+        tree = BinaryTree(1)
+        tree.leftInsert(tree.root, 1, 2)
+        tree.leftInsert(tree.root, 2, 3)
+        self.assertEqual(2, tree.root.left.data)
+        self.assertEqual(None, tree.root.right)
+        self.assertEqual(3, tree.root.left.left.data)
+        self.assertEqual(None, tree.root.left.right)
 
     def test_case03(self):
         """ Test right insert """
-        node = BinaryNode(1)
-        rightInsert(node, 1, 2)
-        rightInsert(node, 2, 3)
-        self.assertEqual(2, node.right.data)
-        self.assertEqual(None, node.left)
-        self.assertEqual(3, node.right.right.data)
-        self.assertEqual(None, node.right.left)
+        tree = BinaryTree(1)
+        tree.rightInsert(tree.root, 1, 2)
+        tree.rightInsert(tree.root, 2, 3)
+        self.assertEqual(2, tree.root.right.data)
+        self.assertEqual(None, tree.root.left)
+        self.assertEqual(3, tree.root.right.right.data)
+        self.assertEqual(None, tree.root.right.left)
 
     def test_case04(self):
         """ Test preorder """
-        node = BinaryNode(1)
-        rightInsert(node, 1, 2)
-        rightInsert(node, 2, 5)
-        leftInsert(node, 5, 3)
-        rightInsert(node, 5, 6)
-        rightInsert(node, 3, 4)
-        results = preOrder(node)
+        tree = BinaryTree(1)
+        tree.rightInsert(tree.root, 1, 2)
+        tree.rightInsert(tree.root, 2, 5)
+        tree.leftInsert(tree.root, 5, 3)
+        tree.rightInsert(tree.root, 5, 6)
+        tree.rightInsert(tree.root, 3, 4)
+        results = tree.preOrder()
         self.assertEqual(6, len(results))
         self.assertListEqual([1, 2, 5, 3, 4, 6], results)
 
